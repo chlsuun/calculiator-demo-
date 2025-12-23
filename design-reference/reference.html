@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Engineering Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1E2630",
+                        "surface-accent": "#283039",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner look if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Active state simulation for touch devices */
+        button:active {
+            transform: scale(0.96);
+            transition: transform 0.05s ease;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white h-screen flex flex-col overflow-hidden selection:bg-primary/30">
+<!-- Header / Top Bar -->
+<header class="flex items-center justify-between p-4 pt-6 pb-2">
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">Standard</h2>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span aria-label="History" class="material-symbols-outlined text-[24px]">history</span>
+</button>
+</header>
+<!-- Display Area -->
+<div class="flex-1 flex flex-col justify-end px-6 pb-4 min-h-0">
+<!-- Equation / History -->
+<div class="text-right pb-1 overflow-x-auto no-scrollbar whitespace-nowrap">
+<p class="text-slate-500 dark:text-slate-400 text-lg font-normal leading-normal tracking-wide">(12 + 5) × log(10)</p>
+</div>
+<!-- Result -->
+<div class="text-right overflow-x-auto no-scrollbar whitespace-nowrap">
+<h1 class="text-6xl md:text-7xl font-bold leading-tight tracking-tight break-all">17</h1>
+</div>
+</div>
+<!-- Controls Area -->
+<div class="flex flex-col gap-4 px-4 pb-8 md:pb-12">
+<!-- Mode Toggle & Scientific Row 1 -->
+<div class="flex justify-between items-center gap-3">
+<!-- RAD/DEG Segmented Button -->
+<div class="flex h-10 items-center rounded-lg bg-white dark:bg-surface-accent p-1 shadow-sm w-32 shrink-0">
+<label class="flex cursor-pointer h-full flex-1 items-center justify-center rounded-[4px] has-[:checked]:bg-slate-200 dark:has-[:checked]:bg-background-dark has-[:checked]:shadow-sm transition-all">
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-300">RAD</span>
+<input class="hidden" name="angle-mode" type="radio" value="RAD"/>
+</label>
+<label class="flex cursor-pointer h-full flex-1 items-center justify-center rounded-[4px] has-[:checked]:bg-slate-200 dark:has-[:checked]:bg-background-dark has-[:checked]:shadow-sm transition-all">
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-300">DEG</span>
+<input checked="" class="hidden" name="angle-mode" type="radio" value="DEG"/>
+</label>
+</div>
+<!-- Scientific Helpers -->
+<div class="flex gap-2 flex-1 justify-end overflow-x-auto no-scrollbar">
+<button class="h-10 px-3 min-w-[3rem] rounded-lg bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-opacity-80 transition-colors">√</button>
+<button class="h-10 px-3 min-w-[3rem] rounded-lg bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-opacity-80 transition-colors">π</button>
+<button class="h-10 px-3 min-w-[3rem] rounded-lg bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-opacity-80 transition-colors">^</button>
+<button class="h-10 px-3 min-w-[3rem] rounded-lg bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-opacity-80 transition-colors">!</button>
+</div>
+</div>
+<!-- Main Keypad Grid -->
+<div class="grid grid-cols-4 gap-3 md:gap-4 h-auto">
+<!-- Row 1: Scientific Functions -->
+<button class="h-14 md:h-16 rounded-xl bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm md:text-base font-semibold hover:bg-slate-50 dark:hover:brightness-110 shadow-sm border border-slate-100 dark:border-none">sin</button>
+<button class="h-14 md:h-16 rounded-xl bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm md:text-base font-semibold hover:bg-slate-50 dark:hover:brightness-110 shadow-sm border border-slate-100 dark:border-none">cos</button>
+<button class="h-14 md:h-16 rounded-xl bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm md:text-base font-semibold hover:bg-slate-50 dark:hover:brightness-110 shadow-sm border border-slate-100 dark:border-none">tan</button>
+<button class="h-14 md:h-16 rounded-xl bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm md:text-base font-semibold hover:bg-slate-50 dark:hover:brightness-110 shadow-sm border border-slate-100 dark:border-none">ln</button>
+<!-- Row 2: Secondary Functions -->
+<button class="h-14 md:h-16 rounded-xl bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm md:text-base font-semibold hover:bg-slate-50 dark:hover:brightness-110 shadow-sm border border-slate-100 dark:border-none">(</button>
+<button class="h-14 md:h-16 rounded-xl bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm md:text-base font-semibold hover:bg-slate-50 dark:hover:brightness-110 shadow-sm border border-slate-100 dark:border-none">)</button>
+<button class="h-14 md:h-16 rounded-xl bg-white dark:bg-surface-accent text-slate-700 dark:text-slate-300 text-sm md:text-base font-semibold hover:bg-slate-50 dark:hover:brightness-110 shadow-sm border border-slate-100 dark:border-none">log</button>
+<button class="h-14 md:h-16 rounded-xl bg-primary/10 dark:bg-surface-accent text-primary text-xl font-bold hover:bg-primary/20 dark:hover:brightness-110 shadow-sm border border-primary/10 dark:border-none">÷</button>
+<!-- Row 3: Numbers & Op -->
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">7</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">8</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">9</button>
+<button class="h-16 md:h-20 rounded-2xl bg-primary/10 dark:bg-surface-accent text-primary text-2xl font-bold hover:bg-primary/20 dark:hover:brightness-110 shadow-sm border border-primary/10 dark:border-none">×</button>
+<!-- Row 4: Numbers & Op -->
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">4</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">5</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">6</button>
+<button class="h-16 md:h-20 rounded-2xl bg-primary/10 dark:bg-surface-accent text-primary text-2xl font-bold hover:bg-primary/20 dark:hover:brightness-110 shadow-sm border border-primary/10 dark:border-none">-</button>
+<!-- Row 5: Numbers & Op -->
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">1</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">2</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">3</button>
+<button class="h-16 md:h-20 rounded-2xl bg-primary/10 dark:bg-surface-accent text-primary text-2xl font-bold hover:bg-primary/20 dark:hover:brightness-110 shadow-sm border border-primary/10 dark:border-none">+</button>
+<!-- Row 6: Bottom Controls -->
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-accent text-red-500 text-xl font-bold hover:bg-red-50 dark:hover:bg-red-900/20 shadow-sm border border-slate-100 dark:border-none">AC</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-medium hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">0</button>
+<button class="h-16 md:h-20 rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-bold hover:bg-slate-50 dark:hover:bg-[#2A3441] shadow-sm border border-slate-100 dark:border-none">.</button>
+<button class="h-16 md:h-20 rounded-2xl bg-primary text-white text-2xl font-bold hover:bg-blue-600 shadow-md shadow-primary/20">=</button>
+<!-- Floating Backspace (integrated visually or placed conveniently) -->
+<!-- Optional: If user deletes frequently, this button might replace AC or sit next to it.
+                 Here I will place it in the top right of the grid as a utility, or float it. 
+                 Let's add a dedicated Backspace row or replace a less used function. 
+                 Actually, standard iOS calcs put it in the display area or as a swipe.
+                 I will add a visual backspace button next to the 0 for easy access in this 4x6 layout. 
+                 Let's modify the last row to include backspace. -->
+</div>
+<!-- Alternate Layout adjustment for Backspace:
+             Let's put backspace in the "Scientific Helpers" row for quick access or next to RAD/DEG.
+             I will add it to the top helpers row. -->
+<div class="flex justify-end pr-2 -mt-[5.5rem] md:-mt-[6.5rem] pointer-events-none relative z-10">
+<!-- Positioning a backspace button overlay near the display/input area -->
+<button class="pointer-events-auto flex items-center justify-center w-12 h-10 text-primary hover:text-blue-400">
+<span class="material-symbols-outlined" style="font-size: 28px;">backspace</span>
+</button>
+</div>
+</div>
+</body></html>

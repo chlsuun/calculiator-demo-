@@ -1,10 +1,6 @@
 # Ignore node modules
 node_modules/
 
-# Ignore extracted files
-stitch_extracted/
-stitch_.zip
-
 # Ignore OS files
 .DS_Store
 Thumbs.db
