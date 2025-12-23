@@ -22,3 +22,6 @@ npm-debug.log*
 # Ignore temporary files
 *.tmp
 .cache/
+
+# Allow .agent directory
+!.agent/
