@@ -24,23 +24,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
+      # Skip Node.js setup and tests until implementation phase
+      # Uncomment when package.json and tests are ready
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '18'
+      #     cache: 'npm'
       
+      # - name: Install dependencies
+      #   run: npm ci
+      
+      # - name: Run tests
+      #   run: npm test
+      
+      # - name: Run linter
+      #   run: npm run lint
+
+      # For now, just validate HTML exists
       - name: Validate HTML files
         run: |
-          echo "Validating HTML files..."
-          npx html-validate "*.html" || echo "HTML validation completed with warnings"
-      
-      - name: Check JavaScript syntax
-        run: |
-          echo "Checking JavaScript files..."
-          if [ -d "js" ]; then
-            npx eslint js/**/*.js --no-eslintrc --parser-options=ecmaVersion:2020 || echo "ESLint check completed"
+          if [ ! -f "index.html" ]; then
+            echo "Error: index.html not found"
+            exit 1
           fi
+          echo "✅ index.html found"
+      
+      # - name: Check JavaScript syntax
+      #   run: |
+      #     echo "Checking JavaScript files..."
+      #     if [ -d "js" ]; then
+      #       npx eslint js/**/*.js --no-eslintrc --parser-options=ecmaVersion:2020 || echo "ESLint check completed"
+      #     fi
       
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
