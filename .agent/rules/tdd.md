@@ -29,11 +29,17 @@ Always follow the TDD cycle:
 - Display manager (DOM manipulation)
 - Theme manager (visual changes)
 - Event handlers (user interaction)
+- **No automated UI testing** - UI will be tested manually
+
+> **IMPORTANT**: UI Testing Strategy
+> UI components will be tested manually through browser testing, not with automated tests. 
+> Focus TDD efforts on core calculation logic only.
 
 ## Test Coverage Requirements
-- **Unit Tests**: 90%+ coverage for core logic
-- **Integration Tests**: All critical user flows
+- **Unit Tests**: 90%+ coverage for core logic only
+- **Integration Tests**: Core logic integration (Calculator → Parser → Evaluator)
 - **Edge Cases**: Must be tested
+- **UI Testing**: Manual browser testing only (not automated)
 
 ## Workflow
 1. Write a failing test (Red)
@@ -49,9 +55,10 @@ Always follow the TDD cycle:
 - One assertion per test when possible
 
 ## Enforcement
-- All tests must pass before merging
-- Coverage must not decrease
-- New features must include tests
+- All core logic tests must pass before merging
+- Coverage must not decrease (90%+ for core logic)
+- New core features must include tests
 - Bug fixes must include regression tests
+- UI changes tested manually, not automated
 
-**Remember**: If you're writing production code without a failing test, you're doing it wrong!
+**Remember**: If you're writing core logic code without a failing test, you're doing it wrong!
